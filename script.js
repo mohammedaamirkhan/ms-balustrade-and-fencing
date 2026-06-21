@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const year = document.querySelector('[data-year]');
   if (year) year.textContent = new Date().getFullYear();
 
@@ -12,6 +12,53 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // Load gallery data and render items from gallery-data.json
+  const buildGallery = async () => {
+    const grid = document.getElementById('galleryGrid');
+    if (!grid) return;
+    try {
+      const res = await fetch('gallery-data.json');
+      if (!res.ok) throw new Error('Failed to load gallery-data.json');
+      const data = await res.json();
+      data.forEach((item) => {
+        // normalize category names used by filters
+        let category = item.category || '';
+        if (category === 'Balustrading') category = 'Balustrades';
+
+        const col = document.createElement('div');
+        col.className = 'col-sm-6 col-lg-4 gallery-item';
+        col.setAttribute('data-category', category);
+
+        const a = document.createElement('a');
+        a.className = 'photo-card gallery-link';
+        a.href = `assets/photos/full/${item.slug}.webp`;
+        a.setAttribute('data-title', item.title || '');
+        a.setAttribute('data-category', category);
+
+        const img = document.createElement('img');
+        img.src = `assets/photos/thumbs/${item.slug}.webp`;
+        img.alt = `${item.title || ''} by MS Balustrade and Fencing`;
+        img.loading = 'lazy';
+        img.width = 700;
+        img.height = 520;
+
+        const caption = document.createElement('div');
+        caption.className = 'photo-caption';
+        caption.innerHTML = `<span>${category}</span>${item.title || ''}`;
+
+        a.appendChild(img);
+        a.appendChild(caption);
+        col.appendChild(a);
+        grid.appendChild(col);
+      });
+    } catch (err) {
+      // if gallery fails to load, leave grid empty
+      // console.error(err);
+    }
+  };
+
+  await buildGallery();
 
   const filterButtons = document.querySelectorAll('[data-filter]');
   const galleryItems = document.querySelectorAll('.gallery-item');
