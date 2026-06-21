@@ -32,12 +32,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const a = document.createElement('a');
         a.className = 'photo-card gallery-link';
-        a.href = `assets/photos/full/${item.slug}.webp`;
+        a.href = `assets/photos/full/${item.slug}`;
         a.setAttribute('data-title', item.title || '');
         a.setAttribute('data-category', category);
 
         const img = document.createElement('img');
-        img.src = `assets/photos/full/${item.slug}.webp`;
+        img.src = `assets/photos/full/${item.slug}`;
         img.alt = `${item.title || ''} by MS Balustrade and Fencing`;
         img.loading = 'lazy';
         img.width = 700;
