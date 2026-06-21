@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         a.setAttribute('data-category', category);
 
         const img = document.createElement('img');
-        img.src = `assets/photos/thumbs/${item.slug}.webp`;
+        img.src = `assets/photos/full/${item.slug}.webp`;
         img.alt = `${item.title || ''} by MS Balustrade and Fencing`;
         img.loading = 'lazy';
         img.width = 700;
