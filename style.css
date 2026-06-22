@@ -72,19 +72,17 @@ body {
 }
 
 .hero {
-  position: relative;
-  min-height: 88vh;
-  display: flex;
-  align-items: center;
-  background:
-    linear-gradient(120deg, rgba(18, 16, 13, 0.94), rgba(54, 42, 25, 0.78)),
-    url('assets/photos/full/balustrade-balcony.webp');
-  background-size: cover;
-  background-position: center;
-  color: #fff;
-  padding: 8rem 0 5rem;
+    position: relative;
+    min-height: 88vh;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(120deg, rgba(18, 16, 13, 0.94), rgba(54, 42, 25, 0.78)), url('assets/photos/full/home-front-slat-fencing.webp');
+    background-size: 110%;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #fff;
+    padding: 8rem 0 5rem;
 }
-
 
 .hero .container {
   position: relative;
