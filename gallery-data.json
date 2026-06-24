@@ -1,23 +1,28 @@
 [
   {
-    "slug": "balustrade-balcony.webp",
-    "title": "Balustrade balcony",
-    "category": "Balustrading"
-  },
-  {
     "slug": "colorbond-fence.webp",
     "title": "Colorbond fence",
     "category": "Fencing"
   },
   {
-    "slug": "pool-fencing-1.jpeg",
-    "title": "Pool fencing 1",
+    "slug": "home-frameless-glass-pool-fence.jpeg",
+    "title": "Glass Pool fencing",
     "category": "Fencing"
   },
   {
     "slug": "pool-fencing.jpeg",
     "title": "Pool fencing",
     "category": "Fencing"
+  },
+  {
+    "slug": "home-pool-glass-fencing.jpeg",
+    "title": "Glass Pool fencing",
+    "category": "Fencing"
+  },
+  {
+    "slug": "balustrade-balcony.webp",
+    "title": "Balustrade balcony",
+    "category": "Balustrading"
   },
   {
     "slug": "colorbond-gate-corner.webp",
