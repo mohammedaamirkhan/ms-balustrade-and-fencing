@@ -542,9 +542,10 @@ footer {
 }
 
 .review-service {
-  color: var(--muted);
-  font-size: .9rem;
-  margin-top: .15rem;
+    color: #bb8339;
+    font-size: 1.2rem;
+    font-weight: bolder;
+    margin-top: .15rem;
 }
 
 @media (max-width: 575px) {
