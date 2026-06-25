@@ -25,16 +25,6 @@
     "category": "Balustrading"
   },
   {
-    "slug": "colorbond-gate-corner.webp",
-    "title": "Colorbond gate and fence",
-    "category": "Gates"
-  },
-  {
-    "slug": "colorbond-side-gate.webp",
-    "title": "Colorbond side gate",
-    "category": "Gates"
-  },
-  {
     "slug": "glass-balustrade-stairs.webp",
     "title": "Glass balustrade stairs",
     "category": "Balustrading"
@@ -50,39 +40,14 @@
     "category": "Balustrading"
   },
   {
-    "slug": "custom-timber-entry-door.webp",
-    "title": "Custom timber entry door",
-    "category": "Custom Work"
+    "slug": "colorbond-gate-corner.webp",
+    "title": "Colorbond gate and fence",
+    "category": "Gates"
   },
   {
-    "slug": "custom-door-close.webp",
-    "title": "Custom door detail",
-    "category": "Custom Work"
-  },
-  {
-    "slug": "custom-door-front.webp",
-    "title": "Custom timber door",
-    "category": "Custom Work"
-  },
-  {
-    "slug": "custom-door-lock.webp",
-    "title": "Smart lock detail",
-    "category": "Custom Work"
-  },
-  {
-    "slug": "custom-door-wide.webp",
-    "title": "Wide custom timber door",
-    "category": "Custom Work"
-  },
-  {
-    "slug": "slat-privacy-gate.webp",
-    "title": "Slat privacy gate",
-    "category": "Privacy Screens"
-  },
-  {
-    "slug": "custom-door-installed.webp",
-    "title": "Custom door installed",
-    "category": "Custom Work"
+    "slug": "colorbond-side-gate.webp",
+    "title": "Colorbond side gate",
+    "category": "Gates"
   },
   {
     "slug": "green-side-gate.webp",
@@ -90,19 +55,9 @@
     "category": "Gates"
   },
   {
-    "slug": "grey-slat-gate.webp",
-    "title": "Grey slat gate",
-    "category": "Privacy Screens"
-  },
-  {
     "slug": "black-steel-side-gate.webp",
     "title": "Black steel side gate",
     "category": "Gates"
-  },
-  {
-    "slug": "modern-slat-gate.webp",
-    "title": "Modern slat gate",
-    "category": "Privacy Screens"
   },
   {
     "slug": "blue-colorbond-gate.webp",
@@ -113,5 +68,60 @@
     "slug": "colorbond-gate-installation.webp",
     "title": "Colorbond gate installation",
     "category": "Gates"
+  },
+  {
+    "slug": "privacy-screen.jpeg",
+    "title": "Privacy Screens",
+    "category": "Privacy Screens"
+  },
+  {
+    "slug": "privacy-screen-1.jpeg",
+    "title": "Privacy Screens",
+    "category": "Privacy Screens"
+  },
+  {
+    "slug": "privacy-screen-2.jpeg",
+    "title": "Privacy Screens",
+    "category": "Privacy Screens"
+  },
+  {
+    "slug": "privacy-screen-3.jpeg",
+    "title": "Privacy Screens",
+    "category": "Privacy Screens"
+  },
+  {
+    "slug": "privacy-screen-4.jpeg",
+    "title": "Privacy Screens",
+    "category": "Privacy Screens"
+  },
+  {
+    "slug": "home-custom-timber-entry-door-1.jpeg",
+    "title": "Custom timber entry door",
+    "category": "Custom Work"
+  },
+  {
+    "slug": "custome-stairs.jpeg",
+    "title": "Custom door detail",
+    "category": "Custom Work"
+  },
+  {
+    "slug": "pool glass fencing 7.jpeg",
+    "title": "Custom glass pool fencing",
+    "category": "Custom Work"
+  },
+  {
+    "slug": "pool glass fencing 8-1.jpeg",
+    "title": "Custom glass pool fencing",
+    "category": "Custom Work"
+  },
+  {
+    "slug": "Custom sliging goor.jpeg",
+    "title": "Custom sliding door",
+    "category": "Custom Work"
+  },
+  {
+    "slug": "custome-lock.jpeg",
+    "title": "Custom door lock",
+    "category": "Custom Work"
   }
 ]
