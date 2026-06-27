@@ -60,11 +60,6 @@
     "category": "Gates"
   },
   {
-    "slug": "blue-colorbond-gate.webp",
-    "title": "Blue Colorbond gate",
-    "category": "Gates"
-  },
-  {
     "slug": "colorbond-gate-installation.webp",
     "title": "Colorbond gate installation",
     "category": "Gates"
@@ -96,12 +91,12 @@
   },
   {
     "slug": "home-custom-timber-entry-door-1.jpeg",
-    "title": "Custom timber entry door",
+    "title": "Custom aluminium entrance door",
     "category": "Custom Work"
   },
   {
     "slug": "custome-stairs.jpeg",
-    "title": "Custom door detail",
+    "title": "Glass stair balustrade",
     "category": "Custom Work"
   },
   {
@@ -117,11 +112,6 @@
   {
     "slug": "sliging-door-1.jpeg",
     "title": "Custom sliding door",
-    "category": "Custom Work"
-  },
-  {
-    "slug": "custome-lock.webp",
-    "title": "Custom door lock",
     "category": "Custom Work"
   }
 ]
