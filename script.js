@@ -62,16 +62,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const filterButtons = document.querySelectorAll('[data-filter]');
   const galleryItems = document.querySelectorAll('.gallery-item');
+  const setGalleryFilter = (filter) => {
+    updateProjectDescription(filter);
+    filterButtons.forEach((btn) => btn.classList.toggle('active', btn.getAttribute('data-filter') === filter));
+    galleryItems.forEach((item) => {
+      item.hidden = item.getAttribute('data-category') !== filter;
+    });
+  };
+
   filterButtons.forEach((button) => {
     button.addEventListener('click', () => {
-      const filter = button.getAttribute('data-filter');
-      updateProjectDescription(filter);
-      filterButtons.forEach((btn) => btn.classList.remove('active'));
-      button.classList.add('active');
-      galleryItems.forEach((item) => {
-        const category = item.getAttribute('data-category');
-        item.hidden = filter !== 'all' && category !== filter;
-      });
+      setGalleryFilter(button.getAttribute('data-filter'));
     });
   });
 
@@ -80,20 +81,58 @@ document.addEventListener('DOMContentLoaded', async () => {
   const modalTitle = document.getElementById('galleryModalTitle');
   if (modalElement && modalImage && window.bootstrap) {
     const modal = new bootstrap.Modal(modalElement);
-    document.querySelectorAll('.gallery-link').forEach((link) => {
+    const modalPrev = modalElement.querySelector('[data-gallery-prev]');
+    const modalNext = modalElement.querySelector('[data-gallery-next]');
+    const galleryLinks = Array.from(document.querySelectorAll('.gallery-link'));
+    let activeGalleryLinks = [];
+    let activeGalleryIndex = 0;
+
+    const setModalNavVisibility = () => {
+      const showNav = activeGalleryLinks.length > 1;
+      if (modalPrev) modalPrev.hidden = !showNav;
+      if (modalNext) modalNext.hidden = !showNav;
+    };
+
+    const showGalleryImage = (index) => {
+      if (!activeGalleryLinks.length) return;
+      activeGalleryIndex = (index + activeGalleryLinks.length) % activeGalleryLinks.length;
+      const activeLink = activeGalleryLinks[activeGalleryIndex];
+      modalImage.src = activeLink.getAttribute('href');
+      modalImage.alt = activeLink.dataset.title || 'Project photo';
+      modalImage.classList.remove('is-zooming');
+      void modalImage.offsetWidth;
+      modalImage.classList.add('is-zooming');
+      if (modalTitle) {
+        modalTitle.textContent = activeLink.dataset.title || '';
+      }
+      setModalNavVisibility();
+    };
+
+    const openGalleryModal = (link) => {
+      const category = link.dataset.category || '';
+      activeGalleryLinks = galleryLinks.filter((item) => item.dataset.category === category);
+      if (!activeGalleryLinks.length) activeGalleryLinks = [link];
+      activeGalleryIndex = Math.max(0, activeGalleryLinks.indexOf(link));
+      showGalleryImage(activeGalleryIndex);
+      modal.show();
+    };
+
+    galleryLinks.forEach((link) => {
       link.addEventListener('click', (event) => {
         event.preventDefault();
-        modalImage.src = link.getAttribute('href');
-        modalImage.alt = link.dataset.title || 'Project photo';
-        if (modalTitle) {
-          modalTitle.textContent = link.dataset.title || '';
-        }
-        modal.show();
+        openGalleryModal(link);
       });
     });
 
+    if (modalPrev) modalPrev.addEventListener('click', () => showGalleryImage(activeGalleryIndex - 1));
+    if (modalNext) modalNext.addEventListener('click', () => showGalleryImage(activeGalleryIndex + 1));
+    modalElement.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') showGalleryImage(activeGalleryIndex - 1);
+      if (event.key === 'ArrowRight') showGalleryImage(activeGalleryIndex + 1);
+    });
     modalElement.addEventListener('hidden.bs.modal', () => {
       modalImage.src = '';
+      modalImage.classList.remove('is-zooming');
     });
   }
 
@@ -198,10 +237,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const projectDescription = document.getElementById('projectCategoryDescription');
   const projectDescriptions = {
-    all: {
-      title: 'All project examples',
-      text: 'Browse recent finishes across fencing, balustrades, gates, privacy screens and custom fabrication. Use the filters to narrow the gallery by project type.'
-    },
     Fencing: {
       title: 'Fence builds',
       text: 'Boundary, Colorbond, pool and security fencing examples with clean lines, strong materials and site-specific layouts.'
@@ -226,12 +261,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const updateProjectDescription = (filter) => {
     if (!projectDescription) return;
-    const details = projectDescriptions[filter] || projectDescriptions.all;
+    const details = projectDescriptions[filter] || projectDescriptions.Fencing;
     projectDescription.innerHTML = `<h2>${details.title}</h2><p>${details.text}</p>`;
   };
 
   if (projectDescription) {
-    updateProjectDescription('all');
+    const activeFilter = document.querySelector('[data-filter].active')?.getAttribute('data-filter') || 'Fencing';
+    setGalleryFilter(activeFilter);
   }
 
   const backToTopBtn = document.getElementById('backToTopBtn');
