@@ -101,45 +101,98 @@ document.addEventListener('DOMContentLoaded', async () => {
   const reviewsCarousel = document.getElementById('staticReviewsCarousel');
   const reviewsTrack = document.getElementById('staticReviewsTrack');
   if (reviewsCarousel && reviewsTrack) {
-    const originalCards = Array.from(reviewsTrack.children);
-    originalCards.forEach((card) => reviewsTrack.appendChild(card.cloneNode(true)));
-
-    const getScrollStep = () => {
-      const firstCard = reviewsTrack.querySelector('.review-card');
-      if (!firstCard) return 360;
-      const styles = window.getComputedStyle(reviewsTrack);
-      const gap = parseFloat(styles.columnGap || styles.gap || 0) || 0;
-      return firstCard.getBoundingClientRect().width + gap;
-    };
-
-    const normalizeScroll = () => {
-      const halfway = reviewsTrack.scrollWidth / 2;
-      if (reviewsCarousel.scrollLeft >= halfway) {
-        reviewsCarousel.scrollLeft = reviewsCarousel.scrollLeft - halfway;
-      }
-      if (reviewsCarousel.scrollLeft < 0) {
-        reviewsCarousel.scrollLeft = 0;
-      }
-    };
-
-    const moveReviews = (direction = 1) => {
-      normalizeScroll();
-      reviewsCarousel.scrollBy({ left: getScrollStep() * direction, behavior: 'smooth' });
-    };
-
-    let reviewTimer = window.setInterval(() => moveReviews(1), 3500);
-    const restartReviewTimer = () => {
-      window.clearInterval(reviewTimer);
-      reviewTimer = window.setInterval(() => moveReviews(1), 3500);
-    };
-
+    const reviewCards = Array.from(reviewsTrack.querySelectorAll('.review-card'));
     const nextBtn = document.querySelector('[data-review-next]');
     const prevBtn = document.querySelector('[data-review-prev]');
-    if (nextBtn) nextBtn.addEventListener('click', () => { moveReviews(1); restartReviewTimer(); });
-    if (prevBtn) prevBtn.addEventListener('click', () => { moveReviews(-1); restartReviewTimer(); });
-    reviewsCarousel.addEventListener('scroll', () => window.requestAnimationFrame(normalizeScroll), { passive: true });
-    reviewsCarousel.addEventListener('mouseenter', () => window.clearInterval(reviewTimer));
-    reviewsCarousel.addEventListener('mouseleave', restartReviewTimer);
+    let activeReviewIndex = 0;
+    let pendingReviewFrame = null;
+    let reviewTimer = null;
+
+    const getMaxScroll = () => Math.max(0, reviewsCarousel.scrollWidth - reviewsCarousel.clientWidth);
+
+    const setReviewControlState = () => {
+      if (prevBtn) prevBtn.disabled = reviewsCarousel.scrollLeft <= 2;
+      if (nextBtn) nextBtn.disabled = reviewsCarousel.scrollLeft >= getMaxScroll() - 2;
+    };
+
+    const updateActiveReview = () => {
+      const scrollLeft = reviewsCarousel.scrollLeft;
+      let closestIndex = 0;
+      let closestDistance = Number.POSITIVE_INFINITY;
+      reviewCards.forEach((card, index) => {
+        const distance = Math.abs(card.offsetLeft - scrollLeft);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestIndex = index;
+        }
+      });
+      activeReviewIndex = closestIndex;
+      if (scrollLeft >= getMaxScroll() - 2) {
+        activeReviewIndex = reviewCards.length - 1;
+      }
+      setReviewControlState();
+    };
+
+    const scrollToReview = (index) => {
+      if (!reviewCards.length) return;
+      activeReviewIndex = Math.max(0, Math.min(index, reviewCards.length - 1));
+      const card = reviewCards[activeReviewIndex];
+      const cardRight = card.offsetLeft + card.offsetWidth;
+      const target = activeReviewIndex === reviewCards.length - 1
+        ? cardRight - reviewsCarousel.clientWidth
+        : card.offsetLeft;
+      reviewsCarousel.scrollTo({
+        left: Math.max(0, Math.min(target, getMaxScroll())),
+        behavior: 'smooth'
+      });
+    };
+
+    const stopReviewAutoplay = () => {
+      window.clearInterval(reviewTimer);
+      reviewTimer = null;
+    };
+
+    const startReviewAutoplay = () => {
+      if (reviewCards.length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      stopReviewAutoplay();
+      reviewTimer = window.setInterval(() => {
+        if (activeReviewIndex >= reviewCards.length - 1 || reviewsCarousel.scrollLeft >= getMaxScroll() - 2) {
+          activeReviewIndex = 0;
+          reviewsCarousel.scrollTo({ left: 0, behavior: 'auto' });
+          setReviewControlState();
+          return;
+        }
+        scrollToReview(activeReviewIndex + 1);
+      }, 3500);
+    };
+
+    const restartReviewAutoplay = () => {
+      stopReviewAutoplay();
+      startReviewAutoplay();
+    };
+
+    if (nextBtn) nextBtn.addEventListener('click', () => {
+      scrollToReview(activeReviewIndex + 1);
+      restartReviewAutoplay();
+    });
+    if (prevBtn) prevBtn.addEventListener('click', () => {
+      scrollToReview(activeReviewIndex - 1);
+      restartReviewAutoplay();
+    });
+    reviewsCarousel.addEventListener('scroll', () => {
+      if (pendingReviewFrame) return;
+      pendingReviewFrame = window.requestAnimationFrame(() => {
+        pendingReviewFrame = null;
+        updateActiveReview();
+      });
+    }, { passive: true });
+    reviewsCarousel.addEventListener('mouseenter', stopReviewAutoplay);
+    reviewsCarousel.addEventListener('mouseleave', startReviewAutoplay);
+    reviewsCarousel.addEventListener('focusin', stopReviewAutoplay);
+    reviewsCarousel.addEventListener('focusout', startReviewAutoplay);
+    window.addEventListener('resize', setReviewControlState);
+    setReviewControlState();
+    startReviewAutoplay();
   }
 
 
@@ -147,27 +200,27 @@ document.addEventListener('DOMContentLoaded', async () => {
   const projectDescriptions = {
     all: {
       title: 'All project examples',
-      text: 'Browse our recent fencing, balustrades, gates, privacy screens and custom work. Select a category above to view examples and a short description for that service.'
+      text: 'Browse recent finishes across fencing, balustrades, gates, privacy screens and custom fabrication. Use the filters to narrow the gallery by project type.'
     },
     Fencing: {
-      title: 'Fencing projects',
-      text: 'Durable fencing solutions for residential and commercial properties, including boundary fencing, pool fencing, security fencing and custom styles to suit your site.'
+      title: 'Fence builds',
+      text: 'Boundary, Colorbond, pool and security fencing examples with clean lines, strong materials and site-specific layouts.'
     },
     Balustrades: {
-      title: 'Balustrades projects',
-      text: 'Stylish and safe balustrades for balconies, stairs, decks, pool areas and outdoor spaces, installed with careful workmanship and attention to safety standards.'
+      title: 'Balustrade installs',
+      text: 'Glass and metal balustrade work for balconies, stairs, decks and outdoor areas where safety and presentation both matter.'
     },
     Gates: {
-      title: 'Gate projects',
-      text: 'Custom swing gates, double gates, sliding gates, side access gates and security gates designed for easy access, privacy and a clean finish.'
+      title: 'Gate installations',
+      text: 'Side access, driveway, swing, double and sliding gate examples designed for smooth movement and secure everyday use.'
     },
     'Privacy Screens': {
-      title: 'Privacy screen projects',
-      text: 'Modern privacy screens for balconies, front yards, side areas and outdoor spaces, helping improve privacy while enhancing the look of your property.'
+      title: 'Screening details',
+      text: 'Slat and privacy screen examples for balconies, side paths, front yards and outdoor living spaces.'
     },
     'Custom Work': {
-      title: 'Custom work projects',
-      text: 'Made-to-measure solutions for unique spaces, including custom doors, feature panels, special finishes and tailored metal or timber work.'
+      title: 'Custom fabrication',
+      text: 'Made-to-measure doors, panels, pool glass and special finishes shaped around unusual spaces or design requirements.'
     }
   };
 

@@ -448,15 +448,23 @@ footer {
   color: var(--brand-dark);
 }
 
+.review-arrow:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
 .reviews-carousel {
   width: 100%;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: visible;
   position: relative;
   scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: .25rem;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  padding: .75rem 0 1.25rem;
+  padding: .75rem .25rem 1.25rem;
 }
 
 .reviews-carousel::-webkit-scrollbar {
@@ -488,10 +496,12 @@ footer {
   display: flex;
   gap: 1.25rem;
   width: max-content;
+  padding-right: .25rem;
 }
 
 .review-card {
   flex: 0 0 360px;
+  scroll-snap-align: start;
   min-height: 250px;
   background: #fff;
   border: 1px solid rgba(245, 184, 46, 0.22);
