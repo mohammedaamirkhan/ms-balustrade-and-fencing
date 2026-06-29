@@ -45,16 +45,15 @@
     <section class="section-padding">
         <div class="container">
             <div class="d-flex flex-wrap gap-2 justify-content-center mb-4 gallery-filters" aria-label="Project photo filters">
-                <button class="btn btn-outline-brand active" type="button" data-filter="all">All</button>
-                <button class="btn btn-outline-brand" type="button" data-filter="Fencing">Fencing</button>
+                <button class="btn btn-outline-brand active" type="button" data-filter="Fencing">Fencing</button>
                 <button class="btn btn-outline-brand" type="button" data-filter="Balustrades">Balustrades</button>
                 <button class="btn btn-outline-brand" type="button" data-filter="Gates">Gates</button>
                 <button class="btn btn-outline-brand" type="button" data-filter="Privacy Screens">Privacy Screens</button>
                 <button class="btn btn-outline-brand" type="button" data-filter="Custom Work">Custom Work</button>
             </div>
             <div id="projectCategoryDescription" class="project-filter-description mb-4" aria-live="polite">
-                <h2>All project examples</h2>
-                <p>Browse recent finishes across fencing, balustrades, gates, privacy screens and custom fabrication. Use the filters to narrow the gallery by project type.</p>
+                <h2>Fence builds</h2>
+                <p>Boundary, Colorbond, pool and security fencing examples with clean lines, strong materials and site-specific layouts.</p>
             </div>
             <div class="row g-4 gallery-grid" id="galleryGrid">
                 <!-- Gallery items will be loaded from gallery-data.json -->
@@ -74,6 +73,8 @@
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content gallery-modal-content border-0 overflow-hidden">
                 <button type="button" class="btn-close btn-close-white gallery-modal-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="gallery-modal-nav gallery-modal-prev" data-gallery-prev aria-label="Previous project photo">‹</button>
+                <button type="button" class="gallery-modal-nav gallery-modal-next" data-gallery-next aria-label="Next project photo">›</button>
                 <div id="galleryModalTitle" class="gallery-modal-title"></div>
                 <img id="galleryModalImage" src="" alt="Project photo" class="img-fluid gallery-modal-img">
             </div>
