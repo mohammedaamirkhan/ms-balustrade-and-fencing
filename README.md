@@ -26,6 +26,7 @@ Search for these placeholders and replace them:
 - `MS Balustrade and Fencing`
 - `info@msbalustradeandfencing.com.au`
 - `0400 000 000`
+- `Lidcombe NSW 2141`
 - `Sydney and surrounding areas`
 
 ## Run locally
@@ -36,7 +37,10 @@ Open `index.html` directly in your browser, or serve the folder with any static 
 - Business name: MS Balustrade and Fencing
 - Domain: msbalustradeandfencing.com.au
 - Placeholder email: info@msbalustradeandfencing.com.au
+- Location: Lidcombe NSW 2141
 - Service area: Sydney and surrounding areas
+- ABN: 61 292 621 504
+- Contractor Licence: 493985C
 
 Update the phone number and email address if you use different contact details.
 
