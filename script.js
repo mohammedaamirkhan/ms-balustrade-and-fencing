@@ -239,15 +239,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   const projectDescriptions = {
     Fencing: {
       title: 'Fence builds',
-      text: 'Boundary, Colorbond, pool and security fencing examples with clean lines, strong materials and site-specific layouts.'
+      text: 'Boundary, Colorbond, pool and security fencing examples with clean lines, durable materials and site-specific layouts.'
     },
     Balustrades: {
       title: 'Balustrade installs',
-      text: 'Glass and metal balustrade work for balconies, stairs, decks and outdoor areas where safety and presentation both matter.'
+      text: 'Glass and metal balustrade work for balconies, stairs, decks and outdoor areas where safety standards and presentation both matter.'
     },
     Gates: {
       title: 'Gate installations',
-      text: 'Side access, driveway, swing, double and sliding gate examples designed for smooth movement and secure everyday use.'
+      text: 'Side access, driveway, swing, double and sliding gate examples designed for smooth movement, secure access and a clean finish.'
     },
     'Privacy Screens': {
       title: 'Screening details',
@@ -255,7 +255,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     },
     'Custom Work': {
       title: 'Custom fabrication',
-      text: 'Made-to-measure doors, panels, pool glass and special finishes shaped around unusual spaces or design requirements.'
+      text: 'Custom doors, panels, pool glass and special finishes shaped around unusual spaces, custom designs or access needs.'
     }
   };
 
